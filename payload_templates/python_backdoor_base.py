@@ -3,7 +3,7 @@ import socket
 import subprocess
 from requests import get
 
-IP = ""
+IP = "[IP PLACEHOLDER]"
 PORT = 4444
 
 
