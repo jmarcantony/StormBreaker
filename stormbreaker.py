@@ -17,7 +17,7 @@ def main():
     
     opt = input(f"      <<StormBreaker>> ")
     if opt == "1":
-        create_payload
+        Payload.create_payload()
     if opt == "2":
         Listener()
 

