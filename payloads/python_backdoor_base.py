@@ -2,10 +2,6 @@ import os
 import socket
 import subprocess
 from requests import get
-import psutil
-import platform
-from datetime import datetime
-
 
 IP = ""
 PORT = 4444
