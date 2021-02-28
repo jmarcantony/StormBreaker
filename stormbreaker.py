@@ -1,6 +1,6 @@
 import os
 from payload import Payload
-
+from listener import Listener
 
 def main():
     print("""
@@ -16,7 +16,8 @@ def main():
     """)
     
     opt = input(f"      <<StormBreaker>> ")
-
+    if opt == "2":
+        Listener()
 
 if __name__ == "__main__":
     main()

@@ -1,1 +1,1 @@
-Disclaimer: This project should be used for authorized testing or educational purposes only.
+Disclaimer: This project should be used for authorized testing or educational purposes only and we're not responsible for any harm caused by this program
