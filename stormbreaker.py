@@ -4,7 +4,7 @@ from listener import Listener
 
 def ask_quit():
     while True:
-        cont = input("[*] Do you want to continue? ([y]es / [n]o): ").strip().lower()
+        cont = input("      [*] Do you want to continue? ([y]es / [n]o): ").strip().lower()
         if cont == "n" or cont == "no":
             return True
             break
@@ -18,6 +18,7 @@ def print_options():
     print("""
       1) Create A Payload
       2) Setup Listener
+      3) Quit
     """)
 
 def main():
@@ -31,8 +32,7 @@ def main():
 \____/ \__\___/|_|  |_| |_| |_| \____/|_|  \___|\__,_|_|\_\___|_|
                                                     Authors: ninjahacker123, WoutVos\n
         """)
-        quit = False
-        while not quit:
+        while True:
             print_options()
             opt = input(f"      <<StormBreaker>> ")
             if opt == "1":
@@ -52,6 +52,13 @@ def main():
 
             elif opt == "2":
                 Listener()
+                quit = ask_quit()
+                if quit:
+                    print("\n   Thanks for using Storm Breaker!\n")
+                    break
+            elif opt == "3":
+                print("\n   Thanks for using Storm Breaker!\n")
+                break
             else:
                 print("\n[-] Invalid Option!\n")
     except KeyboardInterrupt:
