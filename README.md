@@ -11,7 +11,7 @@ Programmes like these are to be used on machines you have explicit permission to
 * run `pyinstaller` in terminal to make sure it works
 * `python stormbreaker.py`
 
-# Installation on Linux and Unix linke OS:
+# Installation on Linux and Unix like OS:
 * `git clone https://github.com/ninjahacker123/StormBreaker.git`
 * `cd StormBreaker`
 * `pip3 install -r requirements.txt`
