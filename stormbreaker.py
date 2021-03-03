@@ -1,6 +1,6 @@
-import os
 from payload import Payload
-from listener import Listener
+from listener import listener
+
 
 def ask_quit():
     while True:
@@ -14,12 +14,14 @@ def ask_quit():
         else:
             print("[-] Invalid Argument")
 
+
 def print_options():
     print("""
       1) Create A Payload
       2) Setup Listener
       3) Quit
     """)
+
 
 def main():
     try:
@@ -51,7 +53,7 @@ def main():
                     break
 
             elif opt == "2":
-                Listener()
+                listener()
                 quit = ask_quit()
                 if quit:
                     print("\n   Thanks for using Storm Breaker!\n")
@@ -63,6 +65,7 @@ def main():
                 print("\n[-] Invalid Option!\n")
     except KeyboardInterrupt:
         print("\nQuitting Storm Breaker...\n")
+
 
 if __name__ == "__main__":
     main()

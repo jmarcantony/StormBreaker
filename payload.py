@@ -19,5 +19,5 @@ class Payload:
             try:
                 os.system(f"pyinstaller --noconsole --onefile --clean --log-level CRITICAL -F --distpath payloads/{self.filename} --workpath payloads/{self.filename}/build --specpath payloads/{self.filename}/build payloads/{self.filename}/{self.filename}.py")
             except:
-                print("[-] Requiremeents not satisfied!\n    run command 'pip install -r requirements.txt' to install requirements")
+                print("[-] Requirements not satisfied!\n    run command 'pip install -r requirements.txt' to install requirements")
         print(f"\n        [+] Payload Created at {os.getcwd()}\payloads\{self.filename} [+]\n")
