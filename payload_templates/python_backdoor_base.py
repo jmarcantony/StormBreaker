@@ -39,9 +39,9 @@ try:
                 result = result.decode()
                 s.send(result.encode())
             elif command[:8] == 'download':
-                download_file(s, command[7:])
+                download_file(s, command[9:])
             elif command[:6] == 'upload':
-                upload_file(s, command[9:])
+                upload_file(s, command[7:])
             else:
                 s.close()
                 break
