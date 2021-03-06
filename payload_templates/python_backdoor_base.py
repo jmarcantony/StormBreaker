@@ -16,9 +16,11 @@ def upload_file(s, file_name):
 
 
 def download_file(s, file_name):
-    with open(file_name, 'rb') as f:
-        data = f.read()
-        s.sendall(data)
+	with open(file_name, 'rb')as f:
+	    data = f.read(1024)
+	    while data:
+	        s.send(data)
+	        data = f.read(1024)
 
 
 try:
