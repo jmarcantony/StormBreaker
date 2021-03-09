@@ -1,7 +1,7 @@
 # Disclaimer: 
 Programmes like these are to be used on machines you have explicit permission to test. WE WILL NOT BE RESPONSIBLE FOR MISUSE OF THIS SOFTWARE!
 
-# NOTE: Make Sure pyinstaller is installed and accesible in the terminal
+# NOTE: Make Sure pyinstaller is installed and added to PATH so its accesible in the terminal
 ## *Written in python 3.9.1*
 
 # Installation on Windows:
